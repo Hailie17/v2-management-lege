@@ -42,7 +42,20 @@ export default {
   },
   methods: {
 
-    submitForm () {},
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          this.$message({
+            message: '请输入正确的信息后再进行提交',
+            type: 'warning'
+          })
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
     getCaptchaBox () {}
   }
 }
