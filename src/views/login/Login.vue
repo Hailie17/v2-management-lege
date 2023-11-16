@@ -4,7 +4,7 @@
       <h1>登录</h1>
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="username">
-          <el-input type="password" v-model="ruleForm.username" autocomplete="off"></el-input>
+          <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item :label="'密\xa0\xa0\xa0\xa0码'" prop="password">
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
@@ -33,13 +33,20 @@ export default {
         captchacode: ''
       },
       rules: {
-        username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }],
+        username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }, { validator: this.validateUsername, trigger: 'blur' }],
         password: [{ required: true, message: '密码不能为空！', trigger: 'blur' }],
         captchacode: [{ required: true, message: '验证码不能为空！', trigger: 'blur' }]
       }
     }
   },
   methods: {
+    validateUsername (rule, value, callback) {
+      if (value.length < 3 || value.length > 10) {
+        callback(new Error('用户名必须在3-10位字符内！'))
+      } else {
+        callback()
+      }
+    },
     submitForm () {},
     getCaptchaBox () {}
   }
