@@ -10,10 +10,13 @@
           <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="验证码" prop="captchacode">
-          <el-input v-model.number="ruleForm.captchacode"></el-input>
+          <div class="captcha-box">
+            <el-input v-model.number="ruleForm.captchacode"></el-input>
+            <img height=40 src="capchaSrc" alt="" @click="getCaptchaBox">
+          </div>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-form-item id="login-btn-box">
+          <el-button class="login-btn" type="primary" @click="submitForm('ruleForm')">提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -37,7 +40,8 @@ export default {
     }
   },
   methods: {
-    submitForm () {}
+    submitForm () {},
+    getCaptchaBox () {}
   }
 }
 </script>
@@ -65,6 +69,21 @@ export default {
       margin-bottom: 20px;
       padding-left: 40px;
       font-size: 20px;
+    }
+
+    .captcha-box {
+      display: flex;
+      img {
+        margin-left: 20px;
+      }
+    }
+
+    .login-btn {
+      width: 100%;
+    }
+    /* element ui 样式穿透 */
+    :deep #login-btn-box .el-form-item__content {
+      margin-left: 40px !important;
     }
   }
 }
