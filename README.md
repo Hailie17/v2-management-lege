@@ -1,5 +1,8 @@
 # vue2-management-lege
 
+前端乐哥  
+Vue2.7+Element UI 通用后台管理系统
+
 ## Project setup
 ```
 pnpm install
