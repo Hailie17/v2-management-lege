@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { validateUsername } from '@/utils/validate'
 export default {
   data () {
     return {
@@ -33,20 +34,14 @@ export default {
         captchacode: ''
       },
       rules: {
-        username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }, { validator: this.validateUsername, trigger: 'blur' }],
+        username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }, { validator: validateUsername, trigger: 'blur' }],
         password: [{ required: true, message: '密码不能为空！', trigger: 'blur' }],
         captchacode: [{ required: true, message: '验证码不能为空！', trigger: 'blur' }]
       }
     }
   },
   methods: {
-    validateUsername (rule, value, callback) {
-      if (value.length < 3 || value.length > 10) {
-        callback(new Error('用户名必须在3-10位字符内！'))
-      } else {
-        callback()
-      }
-    },
+
     submitForm () {},
     getCaptchaBox () {}
   }
