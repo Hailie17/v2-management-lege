@@ -12,7 +12,7 @@
         <el-form-item label="验证码" prop="captchacode">
           <div class="captcha-box">
             <el-input v-model.number="ruleForm.captchacode"></el-input>
-            <img height=40 src="capchaSrc" alt="" @click="getCaptchaBox">
+            <img height=40 :src="captchaSrc" alt="" @click="getCaptchaCode">
           </div>
         </el-form-item>
         <el-form-item id="login-btn-box">
@@ -25,6 +25,7 @@
 
 <script>
 import { validateUsername } from '@/utils/validate'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -37,8 +38,12 @@ export default {
         username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }, { validator: validateUsername, trigger: 'blur' }],
         password: [{ required: true, message: '密码不能为空！', trigger: 'blur' }],
         captchacode: [{ required: true, message: '验证码不能为空！', trigger: 'blur' }]
-      }
+      },
+      captchaSrc: ''
     }
+  },
+  created () {
+    this.getCaptchaCode()
   },
   methods: {
 
@@ -56,7 +61,13 @@ export default {
         }
       })
     },
-    getCaptchaBox () {}
+    getCaptchaCode () {
+      axios.get('http://tech.wolfcode.cn:23683/prod-api/captchaImage').then((res) => {
+        if (res.data.code === 200) {
+          this.captchaSrc = 'data:image/gif;base64,' + res.data.img
+        }
+      })
+    }
   }
 }
 </script>
