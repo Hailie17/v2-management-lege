@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Message } from 'element-ui'
 
 const instance = axios.create({
   baseURL: 'http://tech.wolfcode.cn:23683',
@@ -14,7 +15,12 @@ instance.interceptors.request.use(config => {
 
 // 响应拦截器
 instance.interceptors.response.use(res => {
-  return res
+  const res_data = res.data
+  if (res_data.code !== 200) {
+    Message.error(res_data.msg || '网络请求错误')
+    return false // 这里的 return 不是为了结束函数，是为了把 return 值传给组件 res
+  }
+  return res_data
 }, err => {
   return Promise.reject(err)
 })

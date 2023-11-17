@@ -56,29 +56,21 @@ export default {
             code: this.ruleForm.captchacode,
             uuid: localStorage.getItem('captcha-uuid')
           })
-          if (res.data.code === 200) {
-            console.log(res)
-          } else {
-            this.$message.error(res.data.msg)
-          }
+          if (!res) return false
         } else {
           this.$message({
             message: '请输入正确的信息后再进行提交',
             type: 'warning'
           })
-          console.log('error submit!!')
           return false
         }
       })
     },
     async getCaptchaCode () {
       const res = await getCaptchaCodeApi()
-      if (res.data.code === 200) {
-        this.captchaSrc = 'data:image/gif;base64,' + res.data.img
-        localStorage.setItem('captcha-uuid', res.data.uuid)
-      } else {
-        this.$message.error(res.data.msg)
-      }
+      if (!res) return false
+      this.captchaSrc = 'data:image/gif;base64,' + res.img
+      localStorage.setItem('captcha-uuid', res.uuid)
     }
   }
 }
