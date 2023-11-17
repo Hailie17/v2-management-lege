@@ -25,14 +25,14 @@
 
 <script>
 import { validateUsername } from '@/utils/validate'
-import { getCaptchaCodeApi } from '@/request/api'
+import { getCaptchaCodeApi, LoginApi } from '@/request/api'
 export default {
   data () {
     return {
       ruleForm: {
-        username: '',
-        password: '',
-        captchacode: ''
+        username: 'qdtest1',
+        password: '123456',
+        captchacode: '888888'
       },
       rules: {
         username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }, { validator: validateUsername, trigger: 'blur' }],
@@ -50,7 +50,14 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          LoginApi({
+            username: this.ruleForm.username,
+            password: this.ruleForm.password,
+            code: this.ruleForm.captchacode,
+            uuid: localStorage.getItem('captcha-uuid')
+          }).then((res) => {
+            console.log(res)
+          })
         } else {
           this.$message({
             message: '请输入正确的信息后再进行提交',
@@ -65,6 +72,9 @@ export default {
       getCaptchaCodeApi().then((res) => {
         if (res.data.code === 200) {
           this.captchaSrc = 'data:image/gif;base64,' + res.data.img
+          localStorage.setItem('captcha-uuid', res.data.uuid)
+        } else {
+          this.$message.error(res.data.msg)
         }
       })
     }
