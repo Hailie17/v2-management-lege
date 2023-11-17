@@ -25,7 +25,7 @@
 
 <script>
 import { validateUsername } from '@/utils/validate'
-import axios from 'axios'
+import { getCaptchaCodeApi } from '@/request/api'
 export default {
   data () {
     return {
@@ -62,7 +62,7 @@ export default {
       })
     },
     getCaptchaCode () {
-      axios.get('http://tech.wolfcode.cn:23683/prod-api/captchaImage').then((res) => {
+      getCaptchaCodeApi().then((res) => {
         if (res.data.code === 200) {
           this.captchaSrc = 'data:image/gif;base64,' + res.data.img
         }
