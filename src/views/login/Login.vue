@@ -57,6 +57,17 @@ export default {
             uuid: localStorage.getItem('captcha-uuid')
           })
           if (!res) return false
+          // 提示登录成功
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          })
+          // 清除uuid
+          localStorage.removeItem('captcha-uuid')
+          // 存储Token
+          localStorage.setItem('authorization-token', res.token)
+          // 跳转首页
+          this.$router.push('/')
         } else {
           this.$message({
             message: '请输入正确的信息后再进行提交',
