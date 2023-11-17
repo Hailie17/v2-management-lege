@@ -48,16 +48,19 @@ export default {
   methods: {
 
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          LoginApi({
+          const res = await LoginApi({
             username: this.ruleForm.username,
             password: this.ruleForm.password,
             code: this.ruleForm.captchacode,
             uuid: localStorage.getItem('captcha-uuid')
-          }).then((res) => {
-            console.log(res)
           })
+          if (res.data.code === 200) {
+            console.log(res)
+          } else {
+            this.$message.error(res.data.msg)
+          }
         } else {
           this.$message({
             message: '请输入正确的信息后再进行提交',
@@ -68,15 +71,14 @@ export default {
         }
       })
     },
-    getCaptchaCode () {
-      getCaptchaCodeApi().then((res) => {
-        if (res.data.code === 200) {
-          this.captchaSrc = 'data:image/gif;base64,' + res.data.img
-          localStorage.setItem('captcha-uuid', res.data.uuid)
-        } else {
-          this.$message.error(res.data.msg)
-        }
-      })
+    async getCaptchaCode () {
+      const res = await getCaptchaCodeApi()
+      if (res.data.code === 200) {
+        this.captchaSrc = 'data:image/gif;base64,' + res.data.img
+        localStorage.setItem('captcha-uuid', res.data.uuid)
+      } else {
+        this.$message.error(res.data.msg)
+      }
     }
   }
 }
