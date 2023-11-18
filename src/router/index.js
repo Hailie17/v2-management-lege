@@ -22,4 +22,19 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  // 1.判断用户是否登录, 用户访问登录页，如果有token，跳转首页
+  const token = localStorage.getItem('authorization-token')
+  if (to.path === '/login' && token) {
+    next('/')
+    return
+  }
+  // 2. 用户访问非登录页, 如果没有token, 跳转登录页
+  if (to.path !== '/login' && !token) {
+    next('/login')
+    return
+  }
+  next()
+})
+
 export default router
