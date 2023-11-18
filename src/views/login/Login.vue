@@ -26,6 +26,7 @@
 <script>
 import { validateUsername } from '@/utils/validate'
 import { getCaptchaCodeApi, LoginApi } from '@/request/api'
+
 export default {
   data () {
     return {
@@ -35,9 +36,24 @@ export default {
         captchacode: '888888'
       },
       rules: {
-        username: [{ required: true, message: '用户名不能为空！', trigger: 'blur' }, { validator: validateUsername, trigger: 'blur' }],
-        password: [{ required: true, message: '密码不能为空！', trigger: 'blur' }],
-        captchacode: [{ required: true, message: '验证码不能为空！', trigger: 'blur' }]
+        username: [{
+          required: true,
+          message: '用户名不能为空！',
+          trigger: 'blur'
+        }, {
+          validator: validateUsername,
+          trigger: 'blur'
+        }],
+        password: [{
+          required: true,
+          message: '密码不能为空！',
+          trigger: 'blur'
+        }],
+        captchacode: [{
+          required: true,
+          message: '验证码不能为空！',
+          trigger: 'blur'
+        }]
       },
       captchaSrc: ''
     }
@@ -76,7 +92,8 @@ export default {
           return false
         }
       })
-    },
+    }
+    ,
     async getCaptchaCode () {
       const res = await getCaptchaCodeApi()
       if (!res) return false
@@ -100,7 +117,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     padding-right: 30px;
     padding-top: 20px;
     border-radius: 20px;
@@ -114,6 +131,7 @@ export default {
 
     .captcha-box {
       display: flex;
+
       img {
         margin-left: 20px;
       }
@@ -122,7 +140,9 @@ export default {
     .login-btn {
       width: 100%;
     }
+
     /* element ui 样式穿透 */
+
     :deep #login-btn-box .el-form-item__content {
       margin-left: 40px !important;
     }

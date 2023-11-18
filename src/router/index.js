@@ -11,8 +11,8 @@ const routes = [
   },
   {
     path: '/',
-    name: 'index',
-    component: () => import('../views/index.vue')
+    name: 'mainlayout',
+    component: () => import('../layout/MainLayout.vue')
   }
 ]
 
