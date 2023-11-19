@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="{ isColl : isCollapse}">
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -60,6 +60,10 @@ export default {
     position: relative;
     background-color: #304156;
     box-shadow: 5px 0 5px #ddd;
+    transition: all .3s;
+    &.isColl {
+      width: 64px;
+    }
     .el-menu {
       border: none;
     }
