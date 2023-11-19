@@ -14,14 +14,14 @@
       :collapse-transition="false"
       active-text-color="#ffd04b">
       <div v-for="(item, idx) in menuData" :key="idx">
-        <el-submenu :index="idx" v-if="item.children">
+        <el-submenu :index="item.path" v-if="item.children">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span>{{ item.title }}</span>
           </template>
-          <el-menu-item v-for="(sitem,sidx) in item.children" :key="sidx" :index="sidx">{{ sitem.title }}</el-menu-item>
+          <el-menu-item v-for="(sitem,sidx) in item.children" :key="sidx" :index="sitem.path">{{ sitem.title }}</el-menu-item>
         </el-submenu>
-        <el-menu-item :index="idx" v-else>
+        <el-menu-item :index="item.path" v-else>
           <i class="el-icon-menu"></i>
           <span slot="title">{{ item.title }}</span>
         </el-menu-item>
@@ -124,5 +124,8 @@ export default {
       left: 50px;
     }
   }
+}
+.isColl .el-submenu__title span {
+  display: none;
 }
 </style>
