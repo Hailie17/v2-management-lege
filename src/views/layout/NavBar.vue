@@ -5,7 +5,8 @@
       <span v-show="!isCollapse">通用后台管理系统</span>
     </h1>
     <el-menu
-      default-active="1"
+      :router="true"
+      default-active="2"
       class="el-menu-vertical-demo"
       background-color="#304156"
       text-color="#fff"
@@ -125,7 +126,8 @@ export default {
     }
   }
 }
-.isColl .el-submenu__title span {
+/* 解决加div后样式问题 */
+.isColl .el-submenu__title span, ::v-deep .el-submenu--collapse .el-submenu__title .el-submenu__icon-arrow{
   display: none;
 }
 </style>
