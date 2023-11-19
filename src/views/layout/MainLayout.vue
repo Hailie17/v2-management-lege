@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import NavBar from './NavBar'
-import HeaderView from './HeaderView'
-import ContentView from './ContentView'
+import NavBar from './NavBar.vue'
+import HeaderView from './HeaderView.vue'
+import ContentView from './ContentView.vue'
 export default {
   components: { NavBar, HeaderView, ContentView }
 }

@@ -3,10 +3,11 @@
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
-      background-color="#545c64"
+      background-color="#304156"
       text-color="#fff"
       :collapse="isCollapse"
-      unique-opened="true"
+      :unique-opened="true"
+      :collapse-transition="false"
       active-text-color="#ffd04b">
       <el-submenu index="1">
         <template slot="title">

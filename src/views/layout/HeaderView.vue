@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   data () {
     return {
@@ -15,7 +17,11 @@ export default {
   methods: {
     showMenu () {
       this.isShow = !this.isShow
-    }
+      this.changeCollapse()
+    },
+    ...mapMutations({
+      changeCollapse: 'navCollapse/changeCollapse'
+    })
   }
 }
 </script>
