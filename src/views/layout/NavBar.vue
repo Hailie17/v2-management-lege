@@ -1,5 +1,9 @@
 <template>
   <div class="navbar" :class="{ isColl : isCollapse}">
+    <h1 class="main-logo">
+      <img src="../../assets/logo.png" alt="" width="24">
+      <span v-show="!isCollapse">通用后台管理系统</span>
+    </h1>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
@@ -60,12 +64,25 @@ export default {
     position: relative;
     background-color: #304156;
     box-shadow: 5px 0 5px #ddd;
-    transition: all .3s;
+    transition: all .3s; // 动画
     &.isColl {
       width: 64px;
     }
     .el-menu {
       border: none;
+    }
+    .main-logo {
+      padding: 10px 16px;
+      color: white;
+      position: relative;
+      span {
+        position: absolute;
+        min-width: 160px;
+        font-weight: bold;
+        display: inline-block;
+        top: 14px;
+        left: 50px;
+      }
     }
   }
 </style>
