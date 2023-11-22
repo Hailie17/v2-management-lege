@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import router from '@/router'
 
 const instance = axios.create({
   baseURL: 'http://tech.wolfcode.cn:23683',
@@ -22,6 +23,10 @@ instance.interceptors.response.use(res => {
   const res_data = res.data
   if (res_data.code !== 200) {
     Message.error(res_data.msg || '网络请求错误')
+    if (res_data.code === 401) {
+      localStorage.removeItem('authorization-token')
+      router.push('/login')
+    }
     return false // 这里的 return 不是为了结束函数，是为了把 return 值传给组件 res
   }
   return res_data

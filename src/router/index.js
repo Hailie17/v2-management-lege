@@ -40,11 +40,13 @@ router.beforeEach(async (to, from, next) => {
   // 获取用户菜单数据
   if (token && store.state.userMenuData.menuData.length === 0) {
     const menuDataRes = await GetRoutersApi()
-    let newUserMenuData = [{ title: '首页', path: '/' }]
-    let ret = menuDataRes.data.map(item => {
+    let newUserMenuData = [{ title: '首页', path: '/', icon: 'dashboard' }]
+    if (!menuDataRes) return
+    const ret = menuDataRes.data.map(item => {
       if (item.children) {
         return {
           title: item.meta.title,
+          icon: item.meta.icon,
           path: item.path,
           children: item.children.map(child => {
             return {
@@ -56,6 +58,7 @@ router.beforeEach(async (to, from, next) => {
       } else {
         return {
           title: item.meta.title,
+          icon: item.meta.icon,
           path: item.path
         }
       }
