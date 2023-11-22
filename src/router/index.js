@@ -41,6 +41,21 @@ router.beforeEach(async (to, from, next) => {
   if (token && store.state.userMenuData.menuData.length === 0) {
     const menuDataRes = await GetRoutersApi()
     console.log(menuDataRes, 'menuDataRes')
+    let newUserMenuData = [{ title: '首页', path: '/' }]
+    let ret = menuDataRes.data.map(item => {
+      return {
+        title: item.meta.title,
+        path: item.path,
+        children: item.children.map(child => {
+          return {
+            title: child.meta.title,
+            path: item.path + '/' + child.path
+          }
+        })
+      }
+    })
+    newUserMenuData = [...newUserMenuData, ...ret]
+    console.log(newUserMenuData, 111)
   }
   next()
 })
