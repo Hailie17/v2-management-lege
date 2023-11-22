@@ -4,8 +4,8 @@ export default {
     menuData: []
   },
   mutations: {
-    // changeCollapse (state){
-    //   state.isCollapse = !state.isCollapse
-    // }
+    changeMenuData (state, playload){
+      state.menuData = playload
+    }
   }
 }
