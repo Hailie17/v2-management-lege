@@ -82,4 +82,11 @@ export default {
 .isColl .el-submenu__title span, ::v-deep .el-submenu--collapse .el-submenu__title .el-submenu__icon-arrow{
   display: none;
 }
+
+.el-submenu .el-menu-item {
+  background-color: rgb(38, 52, 69) !important;
+}
+.el-menu-item:hover, ::v-deep .el-submenu .el-submenu__title:hover {
+  background-color: #444 !important;
+}
 </style>
