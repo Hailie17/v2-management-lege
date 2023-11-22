@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store'
+import { GetRoutersApi } from '@/request/api'
 
 Vue.use(VueRouter)
 
@@ -22,7 +24,7 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 1.判断用户是否登录, 用户访问登录页，如果有token，跳转首页
   const token = localStorage.getItem('authorization-token')
   if (to.path === '/login' && token) {
@@ -33,6 +35,12 @@ router.beforeEach((to, from, next) => {
   if (to.path !== '/login' && !token) {
     next('/login')
     return
+  }
+
+  // 获取用户菜单数据
+  if (token && store.state.userMenuData.menuData.length === 0) {
+    const menuDataRes = await GetRoutersApi()
+    console.log(menuDataRes, 'menuDataRes')
   }
   next()
 })
