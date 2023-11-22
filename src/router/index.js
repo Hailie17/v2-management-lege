@@ -14,7 +14,38 @@ const routes = [
   {
     path: '/',
     name: 'mainlayout',
-    component: () => import('@/views/layout/MainLayout.vue')
+    component: () => import('@/views/layout/MainLayout.vue'),
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        component: () => import('../views/HomeView.vue')
+      },
+      {
+        path: '/business/appointment',
+        component: () => import('../views/business/Appointment.vue')
+      },
+      {
+        path: '/business/service',
+        component: () => import('../views/business/Service.vue')
+      },
+      {
+        path: '/business/statement',
+        component: () => import('../views/business/Statement.vue')
+      },
+      {
+        path: '/customer/customer',
+        component: () => import('../views/customer/Customer.vue')
+      },
+      {
+        path: '/customer/visit',
+        component: () => import('../views/customer/Visit.vue')
+      },
+      {
+        path: '/flow/definition',
+        component: () => import('../views/flow/Definition.vue')
+      }
+    ]
   }
 ]
 
