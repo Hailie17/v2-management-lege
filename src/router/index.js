@@ -114,10 +114,17 @@ router.beforeEach(async (to, from, next) => {
     newChildrenRoutes.forEach(item => {
       router.addRoute('mainlayout', item)
     })
+    // 添加to.path重新走路由守卫，此时路由添加完毕，可以检查出用户能否访问这个路径
     next(to.path)
     return
   }
   next()
 })
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function (location) {
+  return originalPush.call(this, location).catch(err => {
+    console.log(err)
+  })
+}
 export default router
