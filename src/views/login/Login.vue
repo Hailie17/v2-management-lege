@@ -26,6 +26,7 @@
 <script>
 import { validateUsername } from '@/utils/validate'
 import { getCaptchaCodeApi, LoginApi } from '@/request/api'
+import { mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -60,9 +61,10 @@ export default {
   },
   created () {
     this.getCaptchaCode()
+    this.changeMenuData([])
   },
   methods: {
-
+    ...mapMutations({ changeMenuData: 'userMenuData/changeMenuData' }),
     submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
