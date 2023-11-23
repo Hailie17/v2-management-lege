@@ -17,34 +17,34 @@ const routes = [
     component: () => import('@/views/layout/MainLayout.vue'),
     redirect: '/home',
     children: [
-      {
-        path: '/home',
-        component: () => import('../views/HomeView.vue')
-      },
-      {
-        path: '/business/appointment',
-        component: () => import('../views/business/Appointment.vue')
-      },
-      {
-        path: '/business/service',
-        component: () => import('../views/business/Service.vue')
-      },
-      {
-        path: '/business/statement',
-        component: () => import('../views/business/Statement.vue')
-      },
-      {
-        path: '/customer/customer',
-        component: () => import('../views/customer/Customer.vue')
-      },
-      {
-        path: '/customer/visit',
-        component: () => import('../views/customer/Visit.vue')
-      },
-      {
-        path: '/flow/definition',
-        component: () => import('../views/flow/Definition.vue')
-      }
+      // {
+      //   path: '/home',
+      //   component: () => import('../views/HomeView.vue')
+      // },
+      // {
+      //   path: '/business/appointment',
+      //   component: () => import('../views/business/Appointment.vue')
+      // },
+      // {
+      //   path: '/business/service',
+      //   component: () => import('../views/business/Service.vue')
+      // },
+      // {
+      //   path: '/business/statement',
+      //   component: () => import('../views/business/Statement.vue')
+      // },
+      // {
+      //   path: '/customer/customer',
+      //   component: () => import('../views/customer/Customer.vue')
+      // },
+      // {
+      //   path: '/customer/visit',
+      //   component: () => import('../views/customer/Visit.vue')
+      // },
+      // {
+      //   path: '/flow/definition',
+      //   component: () => import('../views/flow/Definition.vue')
+      // }
     ]
   }
 ]
@@ -73,6 +73,7 @@ router.beforeEach(async (to, from, next) => {
     const menuDataRes = await GetRoutersApi()
     let newUserMenuData = [{ title: '首页', path: '/', icon: 'dashboard' }]
     if (!menuDataRes) return
+    // 菜单
     const ret = menuDataRes.data.map(item => {
       if (item.children) {
         return {
@@ -96,6 +97,25 @@ router.beforeEach(async (to, from, next) => {
     })
     newUserMenuData = [...newUserMenuData, ...ret]
     store.commit('userMenuData/changeMenuData', newUserMenuData)
+    // 动态添加路由
+    let newChildrenRoutes = [{
+      path: '/home',
+      component: () => import('../views/HomeView.vue')
+    }]
+    menuDataRes.data.forEach(item => {
+      const rets = item.children.map(sitem => {
+        return {
+          path: item.path + '/' + sitem.path,
+          component: () => import(`../views${item.path}/${sitem.name}.vue`)
+        }
+      })
+      newChildrenRoutes = [...newChildrenRoutes, ...rets]
+    })
+    newChildrenRoutes.forEach(item => {
+      router.addRoute('mainlayout', item)
+    })
+    next(to.path)
+    return
   }
   next()
 })
