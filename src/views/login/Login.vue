@@ -26,7 +26,7 @@
 <script>
 import { validateUsername } from '@/utils/validate'
 import { getCaptchaCodeApi, LoginApi } from '@/request/api'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -65,6 +65,7 @@ export default {
   },
   methods: {
     ...mapMutations({ changeMenuData: 'userMenuData/changeMenuData' }),
+    ...mapActions({ changeUserInfo: 'userInfo/asyncChangeUserInfo' }),
     submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -86,6 +87,7 @@ export default {
           localStorage.setItem('authorization-token', res.token)
           // 跳转首页
           this.$router.push('/')
+          this.changeUserInfo()
         } else {
           this.$message({
             message: '请输入正确的信息后再进行提交',

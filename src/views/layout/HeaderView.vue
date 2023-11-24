@@ -8,12 +8,15 @@
       <div class="fl">
         <Breadcrumb></Breadcrumb>
       </div>
+      <div class="fr">
+        {{ userInfo.user.nickName }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
@@ -23,14 +26,15 @@ export default {
       isShow: true
     }
   },
+  computed: {
+    ...mapState({ userInfo: state => state.userInfo.userInfo })
+  },
   methods: {
     showMenu () {
       this.isShow = !this.isShow
       this.changeCollapse()
     },
-    ...mapMutations({
-      changeCollapse: 'navCollapse/changeCollapse'
-    })
+    ...mapMutations({ changeCollapse: 'navCollapse/changeCollapse' })
   }
 }
 </script>
@@ -53,6 +57,9 @@ export default {
     }
     .fl {
       float: left;
+    }
+    .fr {
+      float: right;
     }
   }
 </style>
