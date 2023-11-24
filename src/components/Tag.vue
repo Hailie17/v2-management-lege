@@ -1,6 +1,6 @@
 <template>
   <div class="tags">
-    <el-tag class="tag" @click="goTo(item.path)" @close="closeTag(index)" disable-transitions closable size="medium" v-for="(item, index) in tags" :key="item.path" :effect="item.title === $route.meta.title[$route.meta.title.length - 1] ? 'dark' : 'plain'">
+    <el-tag class="tag" @click="goTo(item.path)" @close="closeTag(index)" disable-transitions :closable="index>0" size="medium" v-for="(item, index) in tags" :key="item.path" :effect="item.title === $route.meta.title[$route.meta.title.length - 1] ? 'dark' : 'plain'">
       <i v-show="item.title === $route.meta.title[$route.meta.title.length - 1]" class="circle"></i>
       {{ item.title }}
     </el-tag>
@@ -40,9 +40,10 @@ export default {
     },
     // 关闭
     closeTag (i) {
-      console.log(this.tags[i].title, this.$route.meta.title[this.$route.meta.title.length - 1])
-      if (this.tags[i].title === this.$route.meta.title[this.$route.meta.title.length - 1]) {
+      if (i === this.tags.length - 1) {
         this.$router.push(this.tags[this.tags.length - 2].path)
+      } else if (this.tags[i].path === this.$route.path) {
+        this.$router.push(this.tags[this.tags.length - 1].path)
       }
       this.tags.splice(i, 1)
     }
