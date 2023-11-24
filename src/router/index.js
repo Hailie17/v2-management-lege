@@ -104,13 +104,15 @@ router.beforeEach(async (to, from, next) => {
     // 动态添加路由
     let newChildrenRoutes = [{
       path: '/home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/HomeView.vue'),
+      meta: { title: ['首页'] }
     }]
     menuDataRes.data.forEach(item => {
       const rets = item.children.map(sitem => {
         return {
           path: item.path + '/' + sitem.path,
-          component: () => import(`../views${item.path}/${sitem.name}.vue`)
+          component: () => import(`../views${item.path}/${sitem.name}.vue`),
+          meta: { title: [item.meta.title, sitem.meta.title] }
         }
       })
       newChildrenRoutes = [...newChildrenRoutes, ...rets]
