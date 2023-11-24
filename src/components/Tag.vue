@@ -34,12 +34,17 @@ export default {
     }
   },
   methods: {
+    // 跳转
     goTo (path) {
       this.$router.push(path)
     },
+    // 关闭
     closeTag (i) {
+      console.log(this.tags[i].title, this.$route.meta.title[this.$route.meta.title.length - 1])
+      if (this.tags[i].title === this.$route.meta.title[this.$route.meta.title.length - 1]) {
+        this.$router.push(this.tags[this.tags.length - 2].path)
+      }
       this.tags.splice(i, 1)
-      this.$router.push(this.tags[this.tags.length - 1].path)
     }
   }
 }
