@@ -8,9 +8,17 @@
       <div class="fl">
         <Breadcrumb></Breadcrumb>
       </div>
-      <div class="fr avatar-box">
-        <img :src="baseURL + (userInfo.user.avatar || '/profile/avatar/2022/10/10/blob_20221010200353A001.jpeg')" alt="" width="40">
-        <i class="el-icon-caret-bottom"></i>
+      <div class="fr">
+        <el-dropdown @command="menuClick">
+          <div class="avatar-box">
+            <img :src="baseURL + (userInfo.user.avatar || '/profile/avatar/2022/10/10/blob_20221010200353A001.jpeg')" alt="" width="40">
+            <i class="el-icon-caret-bottom"></i>
+          </div>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="profile">个人中心</el-dropdown-item>
+            <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -37,7 +45,14 @@ export default {
       this.isShow = !this.isShow
       this.changeCollapse()
     },
-    ...mapMutations({ changeCollapse: 'navCollapse/changeCollapse' })
+    ...mapMutations({ changeCollapse: 'navCollapse/changeCollapse' }),
+    menuClick (command) {
+      if (command === 'logout') {
+        localStorage.removeItem('authorization-token')
+        localStorage.removeItem('userInfo')
+        this.$router.push('/login')
+      }
+    }
   }
 }
 </script>
