@@ -1,14 +1,23 @@
 <template>
   <div class="header">
-    <el-button v-show="isShow" icon="el-icon-s-fold" @click="showMenu"></el-button>
-    <el-button v-show="!isShow" icon="el-icon-s-unfold" @click="showMenu"></el-button>
+    <div class="header-top">
+      <div class="fl">
+        <el-button v-show="isShow" icon="el-icon-s-fold" @click="showMenu"></el-button>
+        <el-button v-show="!isShow" icon="el-icon-s-unfold" @click="showMenu"></el-button>
+      </div>
+      <div class="fl">
+        <Breadcrumb></Breadcrumb>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export default {
+  components: { Breadcrumb },
   data () {
     return {
       isShow: true
@@ -37,6 +46,13 @@ export default {
       font-size: 24px;
       padding: 12px 10px;
       border: none;
+    }
+    .header-top {
+      height: 50px;
+      box-shadow: 0 3px 3px #eee;
+    }
+    .fl {
+      float: left;
     }
   }
 </style>
