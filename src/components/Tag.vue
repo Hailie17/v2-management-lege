@@ -1,7 +1,9 @@
 <template>
   <div class="tags">
-    <el-tag class="tag" closable size="medium" v-for="item in tags" :key="item.path" :effect="item.title === $route.meta.title[$route.meta.title.length - 1] ? 'dark' : 'plain'">
-      {{ item.title }}</el-tag>
+    <el-tag class="tag" @click="goTo(item.path)" @close="closeTag(index)" disable-transitions closable size="medium" v-for="(item, index) in tags" :key="item.path" :effect="item.title === $route.meta.title[$route.meta.title.length - 1] ? 'dark' : 'plain'">
+      <i v-show="item.title === $route.meta.title[$route.meta.title.length - 1]" class="circle"></i>
+      {{ item.title }}
+    </el-tag>
   </div>
 </template>
 
@@ -30,6 +32,15 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    goTo (path) {
+      this.$router.push(path)
+    },
+    closeTag (i) {
+      this.tags.splice(i, 1)
+      this.$router.push(this.tags[this.tags.length - 1].path)
+    }
   }
 }
 </script>
@@ -40,6 +51,14 @@ export default {
   padding-left: 20px;
   .tag {
     margin-right: 5px;
+    .circle {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #fff;
+      display: inline-block;
+      margin-right: 3px;
+    }
   }
 }
 </style>
