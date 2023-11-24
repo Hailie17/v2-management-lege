@@ -8,8 +8,9 @@
       <div class="fl">
         <Breadcrumb></Breadcrumb>
       </div>
-      <div class="fr">
-        {{ userInfo.user.nickName }}
+      <div class="fr avatar-box">
+        <img :src="baseURL + (userInfo.user.avatar || '/profile/avatar/2022/10/10/blob_20221010200353A001.jpeg')" alt="" width="40">
+        <i class="el-icon-caret-bottom"></i>
       </div>
     </div>
   </div>
@@ -18,12 +19,14 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
+import { baseURL } from '@/utils/baseURL'
 
 export default {
   components: { Breadcrumb },
   data () {
     return {
-      isShow: true
+      isShow: true,
+      baseURL
     }
   },
   computed: {
@@ -55,11 +58,21 @@ export default {
       height: 50px;
       box-shadow: 0 3px 3px #eee;
     }
-    .fl {
-      float: left;
+    .avatar-box {
+      padding: 5px 20px 0 0;
+
+      img {
+        border-radius: 5px;
+      }
+      img, i {
+        cursor: pointer;
+      }
     }
-    .fr {
-      float: right;
-    }
+  }
+  .fl {
+    float: left;
+  }
+  .fr {
+    float: right;
   }
 </style>
