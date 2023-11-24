@@ -1,13 +1,16 @@
 <template>
   <div class="header">
     <div class="header-top">
+      <!-- 折叠按钮 -->
       <div class="fl">
         <el-button v-show="isShow" icon="el-icon-s-fold" @click="showMenu"></el-button>
         <el-button v-show="!isShow" icon="el-icon-s-unfold" @click="showMenu"></el-button>
       </div>
+      <!-- 面包屑 -->
       <div class="fl">
         <Breadcrumb></Breadcrumb>
       </div>
+      <!-- 头像下拉菜单 -->
       <div class="fr">
         <el-dropdown @command="menuClick">
           <div class="avatar-box">
@@ -21,16 +24,20 @@
         </el-dropdown>
       </div>
     </div>
+    <div class="header-bottom">
+      <Tag />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
+import Tag from '@/components/Tag'
 import { baseURL } from '@/utils/baseURL'
 
 export default {
-  components: { Breadcrumb },
+  components: { Breadcrumb, Tag },
   data () {
     return {
       isShow: true,
