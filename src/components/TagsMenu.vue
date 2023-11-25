@@ -79,6 +79,7 @@ export default {
   box-shadow: 2px 2px 4px #ccc;
   position: absolute;
   border-radius: 5px;
+  z-index: 100;
   ul {
     padding: 5px 0;
   }

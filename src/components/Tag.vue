@@ -41,6 +41,12 @@ export default {
       }
     }
   },
+  mounted () {
+    document.addEventListener('click', this.closeTagMenu)
+  },
+  beforeDestroy () {
+    document.removeEventListener('click', this.closeTagMenu)
+  },
   methods: {
     // 右键
     rightClick (e, i) {
@@ -52,9 +58,13 @@ export default {
       // window.event.returnValue = false // 关闭浏览器默认菜单
       // return false
     },
+    closeTagMenu () {
+      this.isShowTagsMenu = false
+    },
     // 跳转
     goTo (path) {
       this.$router.push(path)
+      this.closeTagMenu()
     },
     // 关闭
     closeTag (i) {
@@ -64,6 +74,7 @@ export default {
         this.$router.push(this.tags[this.tags.length - 1].path)
       }
       this.tags.splice(i, 1)
+      this.closeTagMenu()
     }
   }
 }
