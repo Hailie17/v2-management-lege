@@ -1,20 +1,28 @@
 <template>
   <div class="tags">
-    <el-tag class="tag" @click="goTo(item.path)" @close="closeTag(index)" disable-transitions :closable="index>0" size="medium" v-for="(item, index) in tags" :key="item.path" :effect="item.title === $route.meta.title[$route.meta.title.length - 1] ? 'dark' : 'plain'">
+    <!-- .native 原生; .prevent 阻止默认行为 -->
+    <el-tag class="tag" @click="goTo(item.path)" @close="closeTag(index)" @contextmenu.native.prevent="rightClick($event, index)" disable-transitions :closable="index>0" size="medium" v-for="(item, index) in tags" :key="item.path" :effect="item.title === $route.meta.title[$route.meta.title.length - 1] ? 'dark' : 'plain'">
       <i v-show="item.title === $route.meta.title[$route.meta.title.length - 1]" class="circle"></i>
       {{ item.title }}
     </el-tag>
+    <TagsMenu v-show="isShowTagsMenu" :clientX="clientX" :clientY="clientY" :itemIndex="itemIndex" :tagsLength="this.tags.length" />
   </div>
 </template>
 
 <script>
+import TagsMenu from '@/components/TagsMenu.vue'
 export default {
+  components: { TagsMenu },
   data () {
     return {
       tags: [{
         title: '首页',
         path: '/home'
-      }]
+      }],
+      isShowTagsMenu: false,
+      clientX: 0,
+      clientY: 0,
+      itemIndex: 0
     }
   },
   watch: {
@@ -34,6 +42,16 @@ export default {
     }
   },
   methods: {
+    // 右键
+    rightClick (e, i) {
+      console.log('rightClick')
+      this.isShowTagsMenu = true
+      this.clientX = e.clientX
+      this.clientY = e.clientY
+      this.itemIndex = i
+      // window.event.returnValue = false // 关闭浏览器默认菜单
+      // return false
+    },
     // 跳转
     goTo (path) {
       this.$router.push(path)

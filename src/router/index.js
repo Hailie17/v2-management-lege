@@ -17,7 +17,8 @@ const routes = [
   },
   {
     path: '/new',
-    component: () => import('../views/HomeView.vue')
+    // component: () => import('../views/HomeView.vue')
+    component: () => import('../views/Board.vue')
   },
   {
     path: '/',
