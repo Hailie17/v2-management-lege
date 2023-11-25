@@ -59,6 +59,8 @@ export default {
         localStorage.removeItem('authorization-token')
         localStorage.removeItem('userInfo')
         this.$router.push('/login')
+      } else if (command === 'profile') {
+        this.$router.push('/profile')
       }
     }
   }

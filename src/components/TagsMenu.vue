@@ -53,6 +53,9 @@ export default {
   methods: {
     isShow (i) {
       // 用户点击第一个 -- 首页
+      if (this.tagsLength === 1) {
+        return i == 0
+      }
       if (this.itemIndex === 0) {
         return ![1, 3].includes(i)
       }

@@ -107,11 +107,18 @@ router.beforeEach(async (to, from, next) => {
     newUserMenuData = [...newUserMenuData, ...ret]
     store.commit('userMenuData/changeMenuData', newUserMenuData)
     // 动态添加路由
-    let newChildrenRoutes = [{
-      path: '/home',
-      component: () => import('../views/HomeView.vue'),
-      meta: { title: ['首页'] }
-    }]
+    let newChildrenRoutes = [
+      {
+        path: '/home',
+        component: () => import('../views/HomeView.vue'),
+        meta: { title: ['首页'] }
+      },
+      {
+        path: '/profile',
+        component: () => import('../views/profile.vue'),
+        meta: { title: ['个人资料'] }
+      }
+    ]
     menuDataRes.data.forEach(item => {
       const rets = item.children.map(sitem => {
         return {
