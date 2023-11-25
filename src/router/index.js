@@ -16,6 +16,10 @@ const routes = [
     component: () => import('../views/404.vue')
   },
   {
+    path: '/new',
+    component: () => import('../views/HomeView.vue')
+  },
+  {
     path: '/',
     name: 'mainlayout',
     component: () => import('@/views/layout/MainLayout.vue'),
@@ -75,7 +79,7 @@ router.beforeEach(async (to, from, next) => {
   // 获取用户菜单数据
   if (token && store.state.userMenuData.menuData.length === 0) {
     const menuDataRes = await GetRoutersApi()
-    let newUserMenuData = [{ title: '首页', path: '/', icon: 'dashboard' }]
+    let newUserMenuData = [{ title: '首页', path: '/home', icon: 'dashboard' }]
     if (!menuDataRes) return
     // 菜单
     const ret = menuDataRes.data.map(item => {

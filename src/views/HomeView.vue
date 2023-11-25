@@ -3,13 +3,25 @@
     <el-container>
       <!-- 头部 -->
       <el-header>
-        <el-button type="primary">
-          新建
-          <i class="el-icon-caret-bottom"></i>
-        </el-button>
+        <el-dropdown>
+          <el-button type="primary">
+            新建
+            <i class="el-icon-caret-bottom"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown" class="custom-menu">
+            <el-dropdown-item icon="el-icon-document-add" style="width: 110px; font-size: 14px">导图</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-document" style="width: 110px; font-size: 14px">文档</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-folder" style="width: 110px; font-size: 14px">文件夹</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
         <el-button type="primary" plain>上传</el-button>
         <el-button type="primary" plain>删除</el-button>
         <el-button type="primary" plain>移动</el-button>
+        <div class="fr-input">
+          <el-input placeholder="标题 / 创建人" v-model="input"></el-input>
+          <i class="el-icon-s-grid"></i>
+          <i class="el-icon-menu"></i>
+        </div>
       </el-header>
       <el-container>
         <!-- 左侧 -->
@@ -36,7 +48,8 @@
                 <el-table-column label="名称">
                   <template slot-scope="scope"><i class="el-icon-folder"></i><span>{{ scope.row.title }}</span></template>
                 </el-table-column>
-                <el-table-column prop="creator" label="创建人" width="120"></el-table-column>
+                <el-table-column prop="creator" label="创建人" width="250"></el-table-column>
+                <el-table-column prop="editTime" label="最近修改时间" width="180"></el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="文件夹" name="file">文件夹</el-tab-pane>
@@ -55,19 +68,21 @@
 export default {
   data () {
     return {
-      data: [{
-        label: '招聘管理',
-        children: [{
-          label: '二级 1-1',
-          children: [{
-            label: '三级 1-1-1'
-          }]
-        }]
-       }, {
-        label: '个人文档'
-       },
+      data: [
         {
-          label: '其他',
+          label: '招聘管理',
+          children: [{
+            label: '二级 1-1',
+            children: [{
+              label: '三级 1-1-1'
+            }]
+          }]
+        },
+        {
+          label: '个人文档'
+        },
+        {
+          label: '其他'
         },
         {
           label: '产品文档',
@@ -77,8 +92,8 @@ export default {
               label: '三级 1-1-1'
             }]
           }]
-         },
-         {
+        },
+        {
           label: '团队文档',
           children: [{
             label: '二级 1-1',
@@ -86,8 +101,8 @@ export default {
               label: '三级 1-1-1'
             }]
           }]
-         },
-         {
+        },
+        {
           label: '运营文档',
           children: [{
             label: '二级 1-1',
@@ -102,11 +117,11 @@ export default {
       },
       activeName: 'all',
       tableData: [
-        { title: '招聘管理', creator: '杨小果' },
-        { title: '个人文档', creator: '杨小果' },
-        { title: '其他', creator: '杨小果' },
-        { title: '产品文档', creator: '杨小果' },
-        { title: '团队文档', creator: '杨小果' }
+        { title: '招聘管理', creator: '杨小果', editTime: '2018-08-08' },
+        { title: '个人文档', creator: '杨小果', editTime: '2018-08-08' },
+        { title: '其他', creator: '杨小果', editTime: '2018-08-08' },
+        { title: '产品文档', creator: '杨小果', editTime: '2018-08-08' },
+        { title: '团队文档', creator: '杨小果', editTime: '2018-08-08' }
       ]
     }
   },
@@ -133,21 +148,37 @@ export default {
 <style lang="less" scoped>
 .el-header {
   border-bottom: 1px solid #ececec;
-  padding: 0 0 65px 0;
+  padding: 0 0 70px 0;
 
   button {
     width: 150px;
     height: 50px;
-    font-size: 18px;
-
+    font-size: 16px;
+    margin: 10px 0 10px 10px;
     i {
       margin-left: 2px;
     }
   }
+  .fr-input {
+    float: right;
+    padding-top: 15px;
+    padding-right: 20px;
+    .el-input__inner {
+      border-radius: 30px;
+    }
+    i {
+      padding-left: 10px;
+    }
+  }
+  .el-input {
+    width: 200px;
+  }
+
 }
 
 .el-aside {
   border-right: 1px solid #ececec;
+  padding-left: 10px;
 
   .aside-title {
     padding-top: 15px;
@@ -188,6 +219,9 @@ export default {
   }
   .el-table__row span {
     padding-bottom: 5px;
+  }
+  ::v-deep .el-tabs__nav-wrap::after {
+    background-color: unset;
   }
 }
 </style>

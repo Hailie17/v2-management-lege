@@ -6,13 +6,13 @@
     </h1>
     <el-menu
       :router="true"
-      default-active="2"
       class="el-menu-vertical-demo"
       background-color="#304156"
       text-color="#fff"
       :collapse="isCollapse"
       :unique-opened="true"
       :collapse-transition="false"
+      :default-active="$route.path"
       active-text-color="#ffd04b">
       <div v-for="(item, idx) in menuData" :key="idx">
         <el-submenu :index="item.path" v-if="item.children">
