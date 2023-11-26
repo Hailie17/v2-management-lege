@@ -12,7 +12,7 @@
         </el-table-column>
         <el-table-column prop="inputUserName" label="录入人"></el-table-column>
         <el-table-column label="录入时间">
-          <template slot-scope="{ row }">{{ row.entryTime && new Date(row.entryTime).toLocaleDateString().replaceAll('/','-') }}</template>
+          <template slot-scope="{ row }">{{ row.entryTime | formatDate }}</template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="{ row }">
