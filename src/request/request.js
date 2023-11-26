@@ -21,7 +21,7 @@ instance.interceptors.request.use(config => {
 // 响应拦截器
 instance.interceptors.response.use(res => {
   const res_data = res.data
-  if (res_data.code !== 200) {
+  if (res_data.code && res_data.code !== 200) {
     Message.error(res_data.msg || '网络请求错误')
     if (res_data.code === 401) {
       localStorage.removeItem('authorization-token')

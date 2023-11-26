@@ -17,3 +17,6 @@ export const GetCustomerListApi = (params) => instance.get('/prod-api/customer',
 
 // 客户管理 - 获取客户来访列表
 export const GetCustomerVisitListApi = (params) => instance.get('/prod-api/customer/visit', { params })
+
+// 导出
+export const GetCustomerExportApi = (params, config) => instance.post('/prod-api/customer/export', params, config)

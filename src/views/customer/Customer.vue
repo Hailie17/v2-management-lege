@@ -1,6 +1,7 @@
 <template>
   <div>
     <template>
+      <el-button type="primary" icon="el-icon-download" @click="exportClick">导出</el-button>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column label="客户姓名" width="200">
@@ -37,7 +38,8 @@
 </template>
 
 <script>
-import { GetCustomerListApi } from '@/request/api'
+import { GetCustomerListApi, GetCustomerExportApi } from '@/request/api'
+import { saveAs } from 'file-saver'
 export default {
   data () {
     return {
@@ -51,6 +53,23 @@ export default {
     this.getTableData()
   },
   methods: {
+    async exportClick () {
+      const res = await GetCustomerExportApi({ pageNum: this.page, pageSize: this.size }, {
+        responseType: 'blob',
+        // 导出文件的请求需要额外传请求配置
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      // 将返回的数据处理成表格文件，用到插件 file-saver
+      saveAs(
+        // Blob 对象表示一个不可变、原始数据的类文件对象。
+        // Blob 表示的不一定是JavaScript原生格式的数据。
+        // File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+        // 返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
+        new Blob([res]),
+        // 设置导出文件名称
+        `客户档案_${new Date().getTime()}.xlsx`
+      )
+    },
     async getTableData () {
       const customerListRes = await GetCustomerListApi({ pageNum: this.page, pageSize: this.size })
       this.tableData = customerListRes.rows
