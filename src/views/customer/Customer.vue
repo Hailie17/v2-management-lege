@@ -70,7 +70,6 @@ export default {
     },
     // 分页
     handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
       this.size = val
       this.getTableData()
     },

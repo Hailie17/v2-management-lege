@@ -24,6 +24,7 @@ export default {
   height: 100%;
   .layout-right {
     flex: 1;
+    overflow-y: scroll;
   }
 }
 </style>
