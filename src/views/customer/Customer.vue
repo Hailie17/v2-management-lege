@@ -14,13 +14,24 @@
         <el-table-column label="录入时间">
           <template slot-scope="{ row }">{{ row.entryTime | formatDate }}</template>
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200">
           <template slot-scope="{ row }">
             <el-button icon="el-icon-edit" type="text" @click="edit([tableData[1], tableData[2]])">修改</el-button>
             <el-button @click="toggleSelection()">取消选择</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <div style="display: flex; justify-content: flex-end; padding: 20px 20px 0 0">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
+      </div>
     </template>
   </div>
 </template>
@@ -56,6 +67,16 @@ export default {
     },
     edit (val) {
       this.multipleSelection = val
+    },
+    // 分页
+    handleSizeChange (val) {
+      console.log(`每页 ${val} 条`)
+      this.size = val
+      this.getTableData()
+    },
+    handleCurrentChange (val) {
+      this.page = val
+      this.getTableData()
     }
   }
 }
