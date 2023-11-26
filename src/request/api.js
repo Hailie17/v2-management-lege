@@ -11,3 +11,9 @@ export const GetRoutersApi = () => instance.get('/prod-api/getRouters')
 
 // 获取用户信息
 export const GetUserInfoApi = () => instance.get('/prod-api/getInfo')
+
+// 客户管理 - 获取客户列表
+export const GetCustomerListApi = (params) => instance.get('/prod-api/customer', { params })
+
+// 客户管理 - 获取客户来访列表
+export const GetCustomerVisitListApi = (params) => instance.get('/prod-api/customer/visit', { params })
