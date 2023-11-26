@@ -5,7 +5,7 @@
       <i v-show="item.title === $route.meta.title[$route.meta.title.length - 1]" class="circle"></i>
       {{ item.title }}
     </el-tag>
-    <TagsMenu v-show="isShowTagsMenu" :clientX="clientX" :clientY="clientY" :itemIndex="itemIndex" :tagsLength="this.tags.length" />
+    <TagsMenu v-show="isShowTagsMenu" :clientX="clientX" :clientY="clientY" :itemIndex="itemIndex" :tagsLength="this.tags.length" @fn="menuHandle" />
   </div>
 </template>
 
@@ -50,7 +50,6 @@ export default {
   methods: {
     // 右键
     rightClick (e, i) {
-      console.log('rightClick')
       this.isShowTagsMenu = true
       this.clientX = e.clientX
       this.clientY = e.clientY
@@ -75,6 +74,18 @@ export default {
       }
       this.tags.splice(i, 1)
       this.closeTagMenu()
+    },
+    // 菜单点击
+    menuHandle (i) {
+      if (i === 5) {
+        // 处理数组
+        this.tags = [{
+          title: '首页',
+          path: '/home'
+        }]
+        // 跳转首页
+        this.goTo('/home')
+      }
     }
   }
 }

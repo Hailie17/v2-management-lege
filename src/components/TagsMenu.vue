@@ -2,7 +2,7 @@
   <!-- tags 右键后的菜单组件 -->
   <div class="tags-menu" :style="{top: clientY + 'px', left: clientX + 'px'}">
     <ul>
-      <li v-for="(item, index) in tmenu" :key="index" v-show="isShow(index)">
+      <li v-for="(item, index) in tmenu" :key="index" v-show="isShow(index)" @click="itemClick(index)">
         <i :class="item.icon"></i>
         {{ item.text }}
       </li>
@@ -68,6 +68,9 @@ export default {
         return i !== 4
       }
       return true
+    },
+    itemClick (i) {
+      this.$emit('fn', i)
     }
   }
 }
