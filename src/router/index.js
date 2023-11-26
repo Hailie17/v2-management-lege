@@ -16,12 +16,12 @@ const routes = [
     component: () => import('../views/404.vue')
   },
   {
-    path: '/new',
+    path: '/',
     // component: () => import('../views/HomeView.vue')
     component: () => import('../views/Board.vue')
   },
   {
-    path: '/',
+    path: '/new',
     name: 'mainlayout',
     component: () => import('@/views/layout/MainLayout.vue'),
     redirect: '/home',
