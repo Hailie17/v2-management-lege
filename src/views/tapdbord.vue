@@ -5,10 +5,9 @@
         <span slot="label"><i class="el-icon-guide"></i> 分析</span>
         <div style="margin-top:10px;">
           <grid-layout :layout.sync="layout"
-                       :col-num="12"
+                       :col-num="24"
                        :row-height="30"
                        :is-draggable="draggable"
-                       :is-resizable="resizable"
                        :vertical-compact="true"
                        :use-css-transforms="true"
                        @layout-created="layoutCreatedEvent"
@@ -23,9 +22,7 @@
                        :w="item.w"
                        :h="item.h"
                        :i="item.i"
-                       @resize="resizeEvent"
                        @move="moveEvent"
-                       @resized="resizedEvent"
                        @container-resized="containerResizedEvent"
                        @moved="movedEvent"
             >
@@ -73,30 +70,9 @@ export default {
   data () {
     return {
       layout: [
-        {
-          'x': 0,
-          'y': 0,
-          'w': 2,
-          'h': 6,
-          'i': '0',
-          static: false
-        },
-        {
-          'x': 2,
-          'y': 0,
-          'w': 2,
-          'h': 4,
-          'i': '1',
-          static: true
-        },
-        {
-          'x': 4,
-          'y': 0,
-          'w': 2,
-          'h': 5,
-          'i': '2',
-          static: false
-        },
+        { 'x': 0, 'y': 0, 'w': 4, 'h': 6, 'i': '0', static: false },
+        { 'x': 2, 'y': 0, 'w': 2, 'h': 4, 'i': '1', static: true },
+        { 'x': 4, 'y': 0, 'w': 2, 'h': 5, 'i': '2', static: false },
         {
           'x': 6,
           'y': 0,
@@ -115,7 +91,6 @@ export default {
         }
       ],
       draggable: true,
-      resizable: true,
       index: 0,
       eventLog: [],
       checked: false
