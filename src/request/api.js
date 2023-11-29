@@ -20,3 +20,6 @@ export const GetCustomerVisitListApi = (params) => instance.get('/prod-api/custo
 
 // 导出
 export const GetCustomerExportApi = (params, config) => instance.post('/prod-api/customer/export', params, config)
+
+// 上传
+export const BpmnInfoApi = (params, config) => instance.post('/prod-api/business/bpmnInfo', params, config)
