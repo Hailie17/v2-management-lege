@@ -4,7 +4,9 @@
       <div class="box1" style="background-color: rgb(245,23,156);">
         <h2>通用后台管理系统</h2>
       </div>
-      <div class="box2" style="background-color: rgb(12,233,3);"></div>
+      <div class="box2">
+        <dv-border-box-8>dv-border-box-8</dv-border-box-8>
+      </div>
       <div class="box3" style="background-color: rgb(109, 5, 255);"></div>
       <div class="box4" style="background-color: rgb(35, 18, 145);"></div>
       <div class="box5" style="background-color: rgb(233, 3, 34);"></div>
@@ -33,7 +35,6 @@ export default {
 .content {
   width: 100%;
   height: 100%;
-  background-color: skyblue;
   /* 设置网格布局 */
   display: grid;
   grid-template-columns: repeat(3, 1fr);

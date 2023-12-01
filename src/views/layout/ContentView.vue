@@ -14,6 +14,5 @@ export default {
 .layout-content {
   padding: 20px;
   height: calc(100% - 124px);
-  background-color: pink;
 }
 </style>
