@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <div class="content">
-      <div class="box1" style="background-color: rgb(245,23,156);"></div>
+      <div class="box1" style="background-color: rgb(245,23,156);">
+        <h2>通用后台管理系统</h2>
+      </div>
       <div class="box2" style="background-color: rgb(12,233,3);"></div>
       <div class="box3" style="background-color: rgb(109, 5, 255);"></div>
       <div class="box4" style="background-color: rgb(35, 18, 145);"></div>
@@ -35,10 +37,21 @@ export default {
   /* 设置网格布局 */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 50px 1fr 1fr 1fr;
   gap: 10px;
 }
-.box6 {
+.box1 {
+  grid-column: span 3;
+}
+h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 22px;
+  color: #fff;
+  margin: 0;
+  line-height: 50px;
+}
+.box8 {
   grid-column: span 2;
 }
 </style>
