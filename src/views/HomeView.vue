@@ -6,10 +6,13 @@
       </div>
       <div class="box2">
         <dv-border-box-8>
-          <dv-active-ring-chart :config="config" style="width:200px;height:200px" />
+          <h3>这是标题</h3>
+          <dv-active-ring-chart :config="config" style="width: 100%;height: 100%"/>
         </dv-border-box-8>
       </div>
-      <div class="box3" style="background-color: rgb(109, 5, 255);"></div>
+      <div class="box3">
+        <ve-pie :data="chartData" height="100%"  :extend="pieExtend"></ve-pie>
+      </div>
       <div class="box4" style="background-color: rgb(35, 18, 145);"></div>
       <div class="box5" style="background-color: rgb(233, 3, 34);"></div>
       <div class="box6" style="background-color: rgb(233, 156, 3);"></div>
@@ -48,6 +51,35 @@ export default {
           }
         ],
         lineWidth: 10
+      },
+      chartData: {
+        columns: ['date', 'PV'],
+        rows: [
+          { 'date': '01-01', 'PV': 1231 },
+          { 'date': '01-02', 'PV': 1223 },
+          { 'date': '01-03', 'PV': 2123 },
+          { 'date': '01-04', 'PV': 4123 },
+          { 'date': '01-05', 'PV': 3123 },
+          { 'date': '01-06', 'PV': 7123 }
+        ]
+      },
+      pieExtend: { // 基于echarts的配置
+        series: {
+          // 设置饼状图
+          type: 'pie',
+          radius: ['0%', '55%'], // 设置半径 [内圈半径，外圈半径]
+          center: ['50%', '60%'], // 设置圆心坐标
+          // legend.textStyle. fontStyle
+          label: {
+            color: '#fff'
+          }
+
+        },
+        legend: { // legend专门为各个标题的配置
+          textStyle: {
+            color: '#fff'
+          }
+        }
       }
     }
   },
@@ -59,6 +91,7 @@ export default {
 .home {
   height: 100%;
 }
+
 .content {
   width: 100%;
   height: 100%;
@@ -68,9 +101,11 @@ export default {
   grid-template-rows: 50px 1fr 1fr 1fr;
   gap: 10px;
 }
+
 .box1 {
   grid-column: span 3;
 }
+
 h2 {
   text-align: center;
   font-weight: bold;
@@ -78,6 +113,14 @@ h2 {
   color: #fff;
   margin: 0;
   line-height: 50px;
+}
+h3{
+  color:#fff;
+  font-size: 20px;
+  position: absolute;
+  left: 50%;
+  top: 5px;
+  transform: translateX(-50%);
 }
 .box8 {
   grid-column: span 2;
