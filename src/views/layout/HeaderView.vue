@@ -14,7 +14,7 @@
       <div class="fr">
         <el-dropdown @command="menuClick">
           <div class="avatar-box">
-            <img :src="baseURL + (userInfo.user.avatar || '/profile/avatar/2022/10/10/blob_20221010200353A001.jpeg')" alt="" width="40">
+            <img :src="baseURL + (userInfo.user.avatar || '/profile/avatar/2022/10/10/blob_20221010200353A001.jpeg')" alt="" width="40" height="40">
             <i class="el-icon-caret-bottom"></i>
           </div>
           <el-dropdown-menu slot="dropdown">
