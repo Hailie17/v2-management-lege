@@ -5,7 +5,9 @@
         <h2>通用后台管理系统</h2>
       </div>
       <div class="box2">
-        <dv-border-box-8>dv-border-box-8</dv-border-box-8>
+        <dv-border-box-8>
+          <dv-active-ring-chart :config="config" style="width:200px;height:200px" />
+        </dv-border-box-8>
       </div>
       <div class="box3" style="background-color: rgb(109, 5, 255);"></div>
       <div class="box4" style="background-color: rgb(35, 18, 145);"></div>
@@ -22,6 +24,31 @@
 export default {
   data () {
     return {
+      config: {
+        data: [
+          {
+            name: '周口',
+            value: 55
+          },
+          {
+            name: '南阳',
+            value: 120
+          },
+          {
+            name: '西峡',
+            value: 78
+          },
+          {
+            name: '驻马店',
+            value: 66
+          },
+          {
+            name: '新乡',
+            value: 80
+          }
+        ],
+        lineWidth: 10
+      }
     }
   },
   methods: {}
